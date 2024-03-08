@@ -40,7 +40,7 @@ that use lib%{name}.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-library%{?_isa} = %{version}-%{release}
 Requires:       sg3_utils-devel
 Requires:       pciutils-devel
 
