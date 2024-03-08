@@ -31,7 +31,8 @@ use this application.
 
 %package        library
 Summary:        Runtime library files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       sg3_utils-libs
+Requires:       pciutils-libs
 
 %description    library
 The lib%{name} package contains runtime libraries for applications
@@ -40,6 +41,8 @@ that use lib%{name}.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       sg3_utils-devel
+Requires:       pciutils-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -68,7 +71,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %postun
 %systemd_postun_with_restart ledmon.service
 
-%files 
+%files
 %doc COPYING
 /usr/share/doc/ledmon/README.md
 %{_sbindir}/ledctl
