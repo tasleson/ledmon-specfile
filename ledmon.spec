@@ -68,8 +68,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %postun
 %systemd_postun_with_restart ledmon.service
 
-%files
-%doc README.md COPYING
+%files 
+%doc COPYING
+/usr/share/doc/ledmon/README.md
 %{_sbindir}/ledctl
 %{_sbindir}/ledmon
 %{_mandir}/*/*
