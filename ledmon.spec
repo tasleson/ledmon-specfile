@@ -1,7 +1,7 @@
 Summary: Enclosure LED Utilities
 Name: ledmon
-Version: 0.97.0
-Release: 0%{?dist}
+Version: 1.0.0
+Release: 1%{?dist}
 License: GPLv2+
 URL: https://github.com/intel/ledmon
 Source0: https://github.com/intel/ledmon/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -88,6 +88,8 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri May 3 2024  Tony Asleson <tasleson@redhat.com> - 1.0.0-1
+
 * Thu May 25 2023 Tony Asleson <tasleson@redhat.com> - 0.97-0
 - Initial pass at adding support for upstream shared ledmon library.
 
