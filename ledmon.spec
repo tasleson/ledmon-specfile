@@ -2,17 +2,17 @@ Summary: Enclosure LED Utilities
 Name: ledmon
 Version: 1.0.0
 Release: 1%{?dist}
-License: GPLv2+
+License: GPL-2.0-only AND LGPL-2.1-only
 URL: https://github.com/intel/ledmon
-Source0: https://github.com/intel/ledmon/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: sg3_utils-devel
-BuildRequires: pciutils-devel
-BuildRequires: libtool
-BuildRequires: libconfig-devel
 BuildRequires: autoconf automake
-BuildRequires: gcc make
 BuildRequires: autoconf-archive
+BuildRequires: gcc make
+BuildRequires: libconfig-devel
+BuildRequires: libtool
+BuildRequires: pciutils-devel
+BuildRequires: sg3_utils-devel
 # Needed for pkgconfig usage.
 BuildRequires: pkgconfig(systemd)
 # Needed for the udev dependency.
@@ -22,6 +22,9 @@ BuildRequires: systemd-rpm-macros
 Obsoletes: ledctl = 0.1-1
 Provides: ledctl = %{version}-%{release}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 %description
 The ledmon and ledctl are user space applications design to control LED
 associated with each slot in an enclosure or a drive bay. There are two
@@ -29,20 +32,20 @@ types of system: 2-LED system (Activity LED, Status LED) and 3-LED system
 (Activity LED, Locate LED, Fail LED). User must have root privileges to
 use this application.
 
-%package        library
+%package        libs
 Summary:        Runtime library files for %{name}
-Requires:       sg3_utils-libs
 Requires:       pciutils-libs
+Requires:       sg3_utils-libs
 
-%description    library
-The lib%{name} package contains runtime libraries for applications
-that use lib%{name}.
+%description    libs
+The %{name}-libs package contains runtime libraries for applications
+that use %{name}.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}-library%{?_isa} = %{version}-%{release}
-Requires:       sg3_utils-devel
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       pciutils-devel
+Requires:       sg3_utils-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -79,7 +82,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_mandir}/*/*
 %{_unitdir}/ledmon.service
 
-%files library
+%files libs
 %{_libdir}/*.so.*
 
 %files devel
@@ -252,3 +255,4 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 * Fri Jan 07 2011 Jiri Moskovcak <jmoskovc@redhat.com> 0.1-1
 - initial release
+
